@@ -1,7 +1,7 @@
 language: python
 
-virtualenv:
-  system_site_packages: true
+python:
+  - "3.5"
 
 before_install:
   - sudo apt-get update
@@ -20,10 +20,10 @@ before_install:
   - git clean -dfx
 
   # manually adapt Debian/Ubuntu dist-packages policy for pycangjie
-  - >
-    export PYTHONPATH=PYTHONPATH=$(/opt/python/3.5.2/bin/python3 -c "import os; print(os.path.dirname(os.__file__))") &&
-    sudo ln -s /usr/lib/python3.5/site-packages/cangjie $PYTHONPATH/site-packages/. &&
-    ls -l $PYTHONPATH/site-packages
+  #- >
+  #  export PYTHONPATH=PYTHONPATH=$(python3 -c "import os; print(os.path.dirname(os.__file__))") &&
+  #  sudo ln -s /usr/lib/python3.5/site-packages/cangjie $PYTHONPATH/site-packages/. &&
+  #  ls -l $PYTHONPATH/site-packages
 
 script:
   - ./autogen.sh --prefix=/usr && make
