@@ -22,7 +22,7 @@ before_install:
   # Next install pycangjie
   - sudo apt-get install cython python3-dev
   - git clone git://github.com/Cangjians/pycangjie
-  - cd pycangjie && git checkout 1.x && ./autogen.sh --prefix=/usr && make && sudo make install && cd ..
+  - cd pycangjie && git checkout 1.x && ./autogen.sh --prefix=$VIRTUAL_ENV && make && sudo make install && cd ..
   - git clean -dfx
 
   # try to reset virtualenv, see if it get pycangjie
@@ -35,5 +35,5 @@ before_install:
   #  ls -l $PYTHONPATH/site-packages
 
 script:
-  - ./autogen.sh --prefix=/usr && make
+  - ./autogen.sh --prefix=$VIRTUAL_ENV && make
   - make check && make distcheck
