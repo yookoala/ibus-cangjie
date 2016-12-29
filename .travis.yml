@@ -5,13 +5,13 @@ python:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install autopoint intltool libibus-1.0-dev python3-gobject
+  - sudo apt-get install autopoint intltool libibus-1.0-dev python3-gi
 
-  # try to re-activate virtualenv, see if this gets python-config for
-  # the virtuanenv environment
+  # Try to re-activate virtualenv after installing python related packages.
+  # See if this gets python-config for the virtuanenv environment
   - echo $VIRTUAL_ENV
   - virtualenv $VIRTUAL_ENV
-  - ls -l $VIRTUAL_ENV
+  - ls -l $VIRTUAL_ENV/bin
 
   # First install libcangjie
   - sudo apt-get install libsqlite3-dev
@@ -24,6 +24,9 @@ before_install:
   - git clone git://github.com/Cangjians/pycangjie
   - cd pycangjie && git checkout 1.x && ./autogen.sh --prefix=/usr && make && sudo make install && cd ..
   - git clean -dfx
+
+  # try to reset virtualenv, see if it get pycangjie
+  - virtualenv $VIRTUAL_ENV
 
   # manually adapt Debian/Ubuntu dist-packages policy for pycangjie
   #- >
