@@ -21,11 +21,9 @@ before_install:
 
   # manually adapt Debian/Ubuntu dist-packages policy for pycangjie
   - >
-    export PYTHONPATH=/usr/lib/python3.5 &&
-    sudo mkdir -p $PYTHONPATH/dist-packages &&
-    sudo ln -s $PYTHONPATH/site-packages/cangjie $PYTHONPATH/dist-packages/. &&
-    ls -l $PYTHONPATH/site-packages &&
-    ls -l $PYTHONPATH/dist-packages
+    export PYTHONPATH=PYTHONPATH=$(/opt/python/3.5.2/bin/python3 -c "import os; print(os.path.dirname(os.__file__))") &&
+    sudo ln -s /usr/lib/python3.5/site-packages/cangjie $PYTHONPATH/site-packages/. &&
+    ls -l $PYTHONPATH/site-packages
 
 script:
   - ./autogen.sh --prefix=/usr && make
