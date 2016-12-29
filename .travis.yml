@@ -5,15 +5,14 @@ python:
 
 before_install:
   - sudo apt-get update
-  - |
+  - >
     sudo apt-get install libsqlite3-dev \
       cython python3-dev \
       autopoint intltool libibus-1.0-dev python3-gi
 
   # Try to re-activate virtualenv after installing python related packages.
   # See if this gets python-config for the virtuanenv environment
-  - echo $VIRTUAL_ENV
-  #- virtualenv $VIRTUAL_ENV
+  - virtualenv $VIRTUAL_ENV
   - ls -l $VIRTUAL_ENV/bin
   - env
 
