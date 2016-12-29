@@ -4,11 +4,14 @@ python:
   - "3.5"
 
 before_install:
-  - echo $VIRTUAL_ENV
-  - ls $VIRTUAL_ENV/bin
-
   - sudo apt-get update
   - sudo apt-get install autopoint intltool libibus-1.0-dev python3-gobject
+
+  # try to re-activate virtualenv, see if this gets python-config for
+  # the virtuanenv environment
+  - echo $VIRTUAL_ENV
+  - virtualenv $VIRTUAL_ENV
+  - ls -l $VIRTUAL_ENV
 
   # First install libcangjie
   - sudo apt-get install libsqlite3-dev
