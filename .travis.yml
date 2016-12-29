@@ -14,6 +14,7 @@ before_install:
   # See if this gets python-config for the virtuanenv environment
   - virtualenv $VIRTUAL_ENV
   - ls -l $VIRTUAL_ENV/bin
+  - source $VIRTUAL_ENV/bin/activate
   - env
 
   # First install libcangjie
