@@ -1,6 +1,14 @@
 language: python
+
+python:
+  - "3.2"
+
+virtualenv:
+  system_site_packages: true
+
 before_install:
   - sudo apt-get update
+  - sudo apt-get install autopoint intltool libibus-1.0-dev python3-gobject
 
   # First install libcangjie
   - sudo apt-get install libsqlite3-dev
@@ -14,5 +22,14 @@ before_install:
   - cd pycangjie && git checkout 1.x && ./autogen.sh --prefix=/usr && make && sudo make install && cd ..
   - git clean -dfx
 
-  - sudo apt-get install autopoint intltool libibus-1.0-dev python3-gobject
-script: ./autogen.sh && make && make check && make distcheck
+  # manually adapt Debian/Ubuntu dist-packages policy for pycangjie
+  - >
+    export PYTHONPATH=/usr/lib/python3.5 &&
+    sudo mkdir -p $PYTHONPATH/dist-packages &&
+    sudo ln -s $PYTHONPATH/site-packages/cangjie $PYTHONPATH/dist-packages/. &&
+    ls -l $PYTHONPATH/site-packages &&
+    ls -l $PYTHONPATH/dist-packages
+
+script:
+  - ./autogen.sh --prefix=/usr && make
+  - make check && make distcheck
